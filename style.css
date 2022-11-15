@@ -1,0 +1,91 @@
+img{
+    height: 100px;
+    width: 100px;
+    grid-area: 1/1/2/2;
+}
+
+.contrainer {
+    display:grid;
+    grid-template-rows: 150px auto auto;
+    grid-template-columns: 150px 1fr 1fr 100px;
+}
+#name{
+    grid-area: 1/2/2/3;
+}
+
+#timer{
+    grid-area: 1/3/2/4;
+}
+#green{
+    background-color: lightgreen;
+    /* grid-area: 2/1/3/3; */
+    
+}
+#red{
+    background-color: pink;
+    /* grid-area: 2/3/3/5; */
+}
+#yellow{
+    background-color: lightyellow;
+    /* grid-area: 3/1/4/3; */
+}
+#blue{
+    background-color: lightblue;
+    /* grid-area: 3/3/4/5; */
+}
+
+#modal {
+	background-color: rgba(0,0,0,0.4);
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 1;
+	overflow: auto;
+    /* display: none; */
+    
+
+}
+#modal-textbox button{
+    height: 60px;
+	width: 200px;
+    font-size: 40px;
+    font-family: arial;
+   
+}
+#modal-textbox {
+	background-color: white;
+	height: 200px;
+	width: 550px;
+	border-radius: 2px;
+	margin: 150px auto;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    padding: 1em;
+    text-align: center;  
+}
+
+
+/* test circcular */
+#circle {
+    display: block;
+    padding: 0;
+    width: 60vh;
+    height: 60vh;
+   
+    border: 1px;
+    border-radius: 50%;
+    overflow: hidden;
+    transform: rotate(45deg);
+    margin: 0 auto;
+  }
+  .quarter {
+    display: inline-block;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 30vh;
+    height: 30vh;
+  
+  }
+  
