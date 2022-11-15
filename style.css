@@ -8,6 +8,7 @@ img{
     display:grid;
     grid-template-rows: 150px auto auto;
     grid-template-columns: 150px 1fr 1fr 100px;
+    background-color: antiquewhite;
 }
 #name{
     grid-area: 1/2/2/3;
@@ -33,6 +34,23 @@ img{
     background-color: lightblue;
     /* grid-area: 3/3/4/5; */
 }
+#rng{
+    background-color: gray;
+    border-radius: 50%;
+    color: white;
+    width: 20vh;
+    height: 20vh;
+    z-index: 1;
+    position: fixed;
+    margin: 20vh;
+    transform: rotate(-45deg);
+    font-size: 30px;
+    font-weight: bold;
+}
+#rng:hover {
+    cursor: pointer;
+    background-color: black;
+  }
 
 #modal {
 	background-color: rgba(0,0,0,0.4);
@@ -43,7 +61,7 @@ img{
 	width: 100%;
 	z-index: 1;
 	overflow: auto;
-    /* display: none; */
+    display: none;
     
 
 }
@@ -86,6 +104,8 @@ img{
     padding: 0;
     width: 30vh;
     height: 30vh;
-  
+  }
+  .quarter:hover {
+    cursor: no-drop;
   }
   
