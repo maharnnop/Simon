@@ -8,25 +8,68 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div id="modal">
+<!-- popup show when pass stage -->
+    <div id="modal"> 
         <div id="modal-textbox">
             <h1>Go to next Stage!!</h1>
           <button id="close" href="#">Close</button>
           <button id="next" href="#">Next</button>
+          
         </div>
       </div>
 
+      <div id="modal-howto"> 
+        <div id="modal-textbox">
+            <ul>How to play!!
+            <li>click [SIMON]  to start</li>
+            <li>wait color popup finish and remember it</li>
+            <li>click color by mouse or arrowkey </li>
+            <li>!! Becareful lifepoint or time runout !!</li>
+        </ul>
+          <button id="close-howto" href="#">Close</button>
+          
+        </div>
+      </div>
+
+      <div id="modal-sc"> 
+        <div id="modal-textbox">
+            <ul>!!HIGH SCORE!!</ul>
+            <li id="playerH">PLAYER : </li>
+            <li id="stageH">STAGE : </li>
+            <li id="timeH">TIME : </li>
+          <button id="close-sc" href="#">Close</button>
+          
+        </div>
+      </div>
+
+      <!-- <div id="modal-login"> 
+        <div id="modal-textbox">
+            <h1>Welcome back!!</h1>
+          <button id="close" href="#">NEW</button>
+          <button id="next" href="#">Resume</button>
+        </div>
+      </div> -->
+<!-- navigator bar -->
 <div class="contrainer">
     <img src="https://nima-jamalian.github.io/CV/images/simonGameLogo.gif" alt="simon logo">
     <div id="name">
-        <h3>Player'name :</h3>
-        <h3 id="stage">Stage : 1</h3>
+        <h1 id="username">Player'name :</h1>
+        <h1 id="stage">Stage : 1</h1>
     </div>
-    <h1 id="timer">Timer :</h1>
-    
+    <div class="point">
+        <h1 id="timer">Timer : 0</h1>
+        <div>
+            <p class="lifepoint" id="lp1"></p>
+            <p class="lifepoint" id="lp2"></p>
+            <p class="lifepoint" id="lp3"></p>
+        </div>
+    </div>
+    <button id="scBoard">Score Board</button>
+    <button id="howTo">?</button>
+
 </div>
 
+<!-- simon circle -->
 <div id="circle">
     <button id="rng">SIMON</button>
     <div id="green" class="quarter" value="0"></div>
