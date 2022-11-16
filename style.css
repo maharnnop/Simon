@@ -71,7 +71,7 @@ body{
     background-color: black;
   }
 
-#modal,#modal-howto,#modal-sc{
+#modal,#modal-howto,#modal-sc,#modal-reset{
 	background-color: rgba(0,0,0,0.4);
 	position: fixed;
 	top: 0;

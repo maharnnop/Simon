@@ -1,14 +1,16 @@
 const ogColor = ["green", "red", "yellow", "blue"]; // color for change
 const arrColor = ["lightgreen", "pink", "lightyellow", "lightblue"]; // defualt color
 const arrowKeys = ["ArrowUp", "ArrowRight", "ArrowLeft", "ArrowDown"]; // input key
-const record = []; // record order of color popup
+let record = []; // record order of color popup
 const scoreBoard = [] // data user from local storge
+let high =['none',0] // keep user hight score
 let stage = 1; // defualt stage
 let delayTime = 1500
 let lp = 0
 let time =  0
 const timer = document.querySelector('#timer')
 userName(); // fn input username 
+
 
  
 
@@ -23,10 +25,15 @@ document.querySelector("#howTo").addEventListener("click", (e)=>{
 document.querySelector("#close-howto").addEventListener("click", (e)=>{
   document.querySelector('#modal-howto').style.display = 'none'
 })
-document.querySelector("#scBoard").addEventListener("click",scBoard)
+document.querySelector("#scBoard").addEventListener("click",()=>{ document.querySelector('#modal-sc').style.display = 'block'})
 document.querySelector("#close-sc").addEventListener("click", (e)=>{
   document.querySelector('#modal-sc').style.display = 'none'
 })
+document.querySelector("#close-reset").addEventListener("click", (e)=>{
+  document.querySelector('#modal-reset').style.display = 'none'
+  nextStage()
+})
+
 
 function rng() {
   // remove click rng ,click color, key arrow,key enter
@@ -70,7 +77,9 @@ function selectColor(e) {
       document.querySelector("body").addEventListener("keydown", keyEnter)
     }
   } else if(lp>0) {
-    lifepoint(false)}else{alert(typeof color + " end game !!!!");
+    lifepoint(false)}else{
+      alert(typeof color + " end game !!!!")
+      endGame();
     
   }
 }
@@ -86,7 +95,9 @@ function keySelectColor(event) {
         document.querySelector("body").addEventListener("keydown", keyEnter)
       }
     } else {
-      if(lp>0){ lifepoint(false)}else{alert(typeof indexKey + " end game !!!!");}
+      if(lp>0){ lifepoint(false)}else{
+        alert(typeof indexKey + " end game !!!!")
+        endGame();}
     }
   }
 }
@@ -107,7 +118,9 @@ function nextStage() {
   document.querySelector("#rng").addEventListener("click", rng);
   document.querySelector("body").addEventListener("keydown", keyEnter)
   let user = document.getElementById("username").innerText.slice(14)
-  window.localStorage.setItem(user, JSON.stringify([stage,lp]));
+  
+  if(user != high[0]){window.localStorage.setItem(user, JSON.stringify([stage,lp]));}
+  
 
 //   const testST = JSON.parse(window.localStorage.getItem("stage"));
 
@@ -165,7 +178,8 @@ function userName() {
             delayTime = 1500*Math.pow(0.9,stage) 
             break
         }else{window.localStorage.setItem(text, '[1,0]')}}
-     
+        
+    scBoard() 
 }
 
 function lifepoint(bool){
@@ -193,21 +207,20 @@ let timeCount = ()=> {
 }
 
 function endGame(){
-  document.querySelector('#modal-textbox h1').innerText ='End game'
-  clearInterval(timeCount)
-  alert(time)
-  
+  document.querySelector('#modal-reset').style.display ='block'
+  stage = 0
+  lp = 0 
+  delayTime = 1500
+  record = []
 }
 
 function scBoard(){
-  document.querySelector('#modal-sc').style.display = 'block'
-  let high =['none',0]
   let sc = 0
   scoreBoard.forEach((item) =>{
-    if(item[1]>sc){
-      sc = item[1]
+    if(item[1][0]>sc){
+      sc = item[1][0]
      high[0]=item[0]
-     high[1]=item[1]
+     high[1]=item[1][0]
 
     }
     document.querySelector('#playerH').innerText = 'PLAYER : '+high[0]
