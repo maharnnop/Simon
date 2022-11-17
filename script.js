@@ -3,13 +3,14 @@ const arrColor = ["lightgreen", "pink", "lightyellow", "lightblue"]; // defualt 
 const arrowKeys = ["ArrowUp", "ArrowRight", "ArrowLeft", "ArrowDown"]; // input key
 let record = []; // record order of color popup
 const scoreBoard = [] // data user from local storge
-let high =['none',0] // keep user hight score
+let high =['none',0] // keep user hight score [user,stage,time]
 let stage = 1; // defualt stage
 let delayTime = 1500
 let lp = 0
 let time =  0
 const timer = document.querySelector('#timer')
 userName(); // fn input username 
+let timecount;
 
 
  
@@ -60,10 +61,7 @@ function rng() {
   console.log(record);
 // add event after show color finish click color,key arrow
   setTimeout(addEvent, 1.1 * delayTime + delayTime * i);
-// add timecount
-//   setTimeout(timeCount, 1.1 * delayTime + delayTime * i)
-//   time = 5+3*stage
-// timer.innerText = `Timer : ${time}`
+
 }
 
 function selectColor(e) {
@@ -73,6 +71,8 @@ function selectColor(e) {
   if (color === record[0]) {
     record.shift();
     if (record.length === 0) {
+      clearInterval(timecount)
+      timer.innerText = `Timer : 0`
       document.querySelector("#modal").style.display = "block";
       document.querySelector("body").addEventListener("keydown", keyEnter)
     }
@@ -91,6 +91,8 @@ function keySelectColor(event) {
     if (indexKey === record[0]) {
       record.shift();
       if (record.length === 0) {
+        clearInterval(timecount)
+        timer.innerText = `Timer : 0`
         document.querySelector("#modal").style.display = "block";
         document.querySelector("body").addEventListener("keydown", keyEnter)
       }
@@ -119,7 +121,9 @@ function nextStage() {
   document.querySelector("body").addEventListener("keydown", keyEnter)
   let user = document.getElementById("username").innerText.slice(14)
   
-  if(user != high[0]){window.localStorage.setItem(user, JSON.stringify([stage,lp]));}
+  if(user === high[0]){
+    if(stage >high[1]){window.localStorage.setItem(user, JSON.stringify([stage,lp]))}
+  }else{window.localStorage.setItem(user, JSON.stringify([stage,lp]));}
   
 
 //   const testST = JSON.parse(window.localStorage.getItem("stage"));
@@ -136,6 +140,17 @@ function addEvent() {
     document.querySelector(`#${item}`).addEventListener("click", selectColor);
     document.querySelector(`#${item}`).style.cursor = "pointer";
   });
+
+  // add timecount
+  time = 5+3*stage
+  timecount = setInterval(()=>{
+    if(time>0){
+      time -= 1
+      timer.innerText = `Timer : ${time}`
+    }else{clearInterval(timecount)
+      endGame()} 
+  },1000)
+  timer.innerText = `Timer : ${time}`
 }
 
 function removeEvent() {
@@ -155,7 +170,7 @@ function userName() {
   let text;
   let person = prompt("Please enter your name:");
   if (person == null || person == "") {
-    text = "Guestlnwza@" + Math.floor(Math.random() * 10000);
+    text = "Guestlnwza@" + Math.floor(Math.random() * 100);
   } else {
     text = person;
   }
@@ -192,22 +207,10 @@ function lifepoint(bool){
   }
 }
 
-let timeCount = ()=> {
- 
-  let count = setInterval(()=>{
-    console.log(time);
-    if(time>0){
-      time -= 1
-      timer.innerText = `Timer : ${time}`
-    }else{clearInterval(count)
-      endGame(timeCount)} 
-  },1000)
-  // clearInterval(timeCount)
-  
-}
-
 function endGame(){
   document.querySelector('#modal-reset').style.display ='block'
+  clearInterval(timecount)
+  timer.innerText = `Timer : 0`
   stage = 0
   lp = 0 
   delayTime = 1500

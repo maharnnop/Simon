@@ -7,7 +7,7 @@ img{
     justify-self: center;
 }
 body{
-    background-color: gray;
+    background-color:rgb(43, 43, 43);
     height: 100vh;
     width: 100vw;
     margin: 0;
@@ -18,8 +18,9 @@ body{
     display:grid;
     grid-template-rows: 120px ;
     grid-template-columns: 150px 1fr 250px 100px 70px;
-    background-color: antiquewhite;
+    background-color: peru;
     align-items: center;
+    border-bottom: 5px solid white;
   
 }
 #name{
@@ -93,7 +94,7 @@ body{
    
 }
 #modal-textbox {
-	background-color: white;
+	background-color: orange;
 	height: 300px;
 	width: 550px;
 	border-radius: 20%;
@@ -174,7 +175,7 @@ body{
  }
  #modal-howto li,#modal-sc li{
     font-size: 20px;
-    color: gray;
+    color: white;
     margin: 10px;
      }
  #modal-howto ul,#modal-sc ul{
