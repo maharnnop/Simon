@@ -203,11 +203,24 @@ body{
         display: none;
     }
     #name{
+        margin-left: 10px;
         grid-area: 1/1/2/2;
   }
   .point{
+    margin-left: 10px;
     grid-area: 2/1/3/2;
     display: inline-flex;
+}
+.lifepoint{
+    height: 35px;
+    width: 35px;
+    margin: 8px;
+}
+
+#timer{
+    align-self: center;
+    margin:0;
+    margin-right: 20px;
 }
  /* circle simon */
  #rng{
@@ -231,7 +244,14 @@ body{
     border : 1vw solid black;
     
   }
-
+  #modal-textbox {
+	
+	height: 45vh;
+	width: 80vw;
+	margin: 150px auto;
+    padding: 1em;
+   
+}
 }
 
 
