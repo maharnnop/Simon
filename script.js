@@ -9,7 +9,7 @@ let delayTime = 1500
 let lp = 0
 let time =  0
 const timer = document.querySelector('#timer')
-userName(); // fn input username 
+// userNames(); // fn input username 
 let timecount;
 
 
