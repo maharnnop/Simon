@@ -138,7 +138,7 @@ function keyEnter(e) {
     if (document.querySelector("#modal").style.display === "block") {
       nextStage();
     } else if(document.querySelector("#modal-reset").style.display === "block"){
-      document.querySelector("#modal-reset").style.display === "none"
+      document.querySelector("#modal-reset").style.display = "none"
     }else{
       rng();
     }
