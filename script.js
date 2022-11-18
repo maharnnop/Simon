@@ -1,5 +1,5 @@
-const ogColor = ["green", "red", "yellow", "blue"]; // color for change
-const arrColor = ["lightgreen", "pink", "lightyellow", "lightblue"]; // defualt color
+const ogColor = ["green", "red", "yellow", "blue"]; // defualt color
+const arrColor = ["lightgreen", "pink", "lightyellow", "lightblue"]; // color for change
 const arrowKeys = ["ArrowUp", "ArrowRight", "ArrowLeft", "ArrowDown"]; // input key
 // array text to speech
 const speech = [
@@ -10,47 +10,48 @@ const speech = [
   new SpeechSynthesisUtterance("Wrong"),
 ]; 
 speech.forEach((item) => {
-  item.rate = 3;
-}); //speed of speech (1-10) more to faster
+  item.rate = 4;
+}); //set speed of speech (1-10) more to faster
 let record = []; // record order of color popup
 const scoreBoard = []; // data user from local storge
 let high = ["none", 0, 0]; // keep user hight score [user,stage,time]
 let stage = 1; // defualt stage
 
-let delayTime = 900; // delay popup color
-let lp = 0; // lifepoint
-let time = 0;
+let delayTime = 900; // defualt delay time popup color
+let lp = 0; // defualt lifepoint
+let time = 0;// defualt timecount
 
-const timer = document.querySelector("#timer"); // timer
+const timer = document.querySelector("#timer"); // Dom timer
 userName(); // fn input username
-let user = document.getElementById("username").innerText.slice(14); // user name
-let stageH = 0; //
+let user = document.getElementById("username").innerText.slice(14); // Dom user name
+let stageH = 0; // defualt hight stage of player now
 
+// if user ever play stageH = stage is recorded
 if (JSON.parse(window.localStorage.getItem(user)) === null) {
   stageH = 1;
 } else {
   stageH = JSON.parse(window.localStorage.getItem(user))[0];
 }
 
-let timecount;
+let timecount; // define fn timecount
 
-document.querySelector("#rng").addEventListener("click", rng); //start button
+document.querySelector("#rng").addEventListener("click", rng); //start button (simon)
 document.querySelector("#close").addEventListener("click", closeModal); //close modal button
-document.querySelector("#next").addEventListener("click", nextStage); //go next stage
+document.querySelector("#next").addEventListener("click", nextStage); //go next stage button
 document.querySelector("body").addEventListener("keydown", keyEnter);
-document.querySelector("#howTo").addEventListener("click", (e) => {
+document.querySelector("#howTo").addEventListener("click", (e) => { //open how to play button
   document.querySelector("#modal-howto").style.display = "block";
 });
-document.querySelector("#close-howto").addEventListener("click", (e) => {
+document.querySelector("#close-howto").addEventListener("click", (e) => { //close how to play button
   document.querySelector("#modal-howto").style.display = "none";
 });
-document.querySelector("#scBoard").addEventListener("click", () => {
+document.querySelector("#scBoard").addEventListener("click", () => {//open score board button
   document.querySelector("#modal-sc").style.display = "block";
 });
-document.querySelector("#close-sc").addEventListener("click", (e) => {
+document.querySelector("#close-sc").addEventListener("click", (e) => {//close score board button
   document.querySelector("#modal-sc").style.display = "none";
 });
-document.querySelector("#close-reset").addEventListener("click", (e) => {
+document.querySelector("#close-reset").addEventListener("click", (e) => {//close reset modal
   document.querySelector("#modal-reset").style.display = "none";
   nextStage();
 });
@@ -59,21 +60,22 @@ document.querySelector("#close-reset").addEventListener("click", (e) => {
 function rng() {
   // remove click rng ,click color, key arrow,key enter
   removeEvent();
-  // random ,push,display color
+  // math random and push to record array
   let i = -1;
   for (let i = 0; i < stage; i++) {
     let num = Math.floor(Math.random() * 4);
     record.push(num);
   }
+  // loop record array the show color and sound
   record.forEach((num) => {
     i += 1;
     speechSynthesis.speak(speech[num]); // voice speech
+    // delay time for appear
     setTimeout(() => {
       document.querySelector(`#${ogColor[num]}`).style.backgroundColor =
         arrColor[num];
-      // test speech
     }, delayTime / 2 + delayTime * i);
-
+// delay time for disappear
     setTimeout(() => {
       document.querySelector(`#${ogColor[num]}`).style.backgroundColor =
         ogColor[num];
@@ -86,29 +88,29 @@ function rng() {
 // fn for click color
 function selectColor(e) {
   e.preventDefault();
-  let color = parseInt(e.target.getAttribute("value"));
-
+  let color = parseInt(e.target.getAttribute("value"));// dom color 
+//check color is clicked with record array
   if (color === record[0]) {
     record.shift();
-    document.querySelector("#rng").innerText = record.length;
-    if (record.length === 0) {
+    document.querySelector("#rng").innerText = record.length; // show length of array 
+    if (record.length === 0) { // if record array =[] then go to next stage
       clearInterval(timecount);
       timer.innerText = `Timer : 0`;
       document.querySelector("#modal").style.display = "block";
       document.querySelector("body").addEventListener("keydown", keyEnter);
     }
-  } else if (lp > 0) {
+  } else if (lp > 0) {// if selec worng but have lp
     speechSynthesis.speak(speech[4]); // voice speech
     lifepoint(false);
-  } else {
+  } else { //if selec worng and  lp = 0
     speechSynthesis.speak(speech[4]); // voice speech
     endGame();
   }
 }
-// fn selectcolor by arrow key
+// fn selectcolor by arrow key same like above
 function keySelectColor(event) {
   const key = event.key;
-  const indexKey = arrowKeys.indexOf(key);
+  const indexKey = arrowKeys.indexOf(key); 
   if (indexKey >= 0) {
     // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
     if (indexKey === record[0]) {
@@ -135,7 +137,9 @@ function keyEnter(e) {
   if (e.key === "Enter") {
     if (document.querySelector("#modal").style.display === "block") {
       nextStage();
-    } else {
+    } else if(document.querySelector("#modal-reset").style.display === "block"){
+      document.querySelector("#modal-reset").style.display === "none"
+    }else{
       rng();
     }
   }
@@ -155,9 +159,9 @@ function nextStage() {
   removeEvent();
   document.querySelector("#rng").addEventListener("click", rng);
   document.querySelector("body").addEventListener("keydown", keyEnter);
-  window.localStorage.setItem(user, JSON.stringify([stageH, lp, time]));
+  window.localStorage.setItem(user, JSON.stringify([stageH, lp, time]));// update local data
   document.querySelector("#rng").innerText = "SIMON";
-  if (stage > high[1]) {
+  if (stage > high[1]) {// update score board
     high[1] = stage;
     high[0] = user;
     high[2] = time;
@@ -282,7 +286,7 @@ function scBoard() {
   });
 }
 
-// text to speech
+// text to speech api
 if ("speechSynthesis" in window) {
   // Speech Synthesis supported 🎉
 } else {
